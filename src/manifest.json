@@ -1,0 +1,7 @@
+{
+  "name": "Chords",
+  "short_name": "Chords",
+  "start_url": "./",
+  "display": "standalone",
+  "description": "A PWA that is built with Angular"
+}
