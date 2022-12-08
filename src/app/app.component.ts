@@ -21,6 +21,7 @@ export class AppComponent {
   keyboard_hidden : boolean = true;
   check_hidden : boolean = true;
   success : boolean = false;
+  skip : boolean = false;
 
   intervals_service : IntervalsService;
 

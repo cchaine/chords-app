@@ -2,13 +2,13 @@
   <div id="topbar">
     <title-button (click)="this.show_settings()"></title-button>
   </div>
+  <skip-button></skip-button>
 
   <div id="background" (click)="this.hide_keyboard()">
-    <div id="question">
+    <div id="question" [ngClass]="{'higher' : this.keyboard_hidden == false}">
       <div id="subquestion">{{ this.question }}</div>
       <div id="bigquestion">{{ this.question_root }} </div>
     </div>
-    <div id="spacer" [ngClass]="{'lower': this.keyboard_hidden}"></div>
   </div>
 
   <settings-panel

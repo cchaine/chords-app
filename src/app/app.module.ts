@@ -9,6 +9,7 @@ import { SettingsPanelComponent } from './components/settings-panel/settings-pan
 import { SettingsEntryComponent } from './components/settings-entry/settings-entry.component';
 import { AnswerInputComponent } from './components/answer-input/answer-input.component';
 import { CheckButtonComponent } from './components/check-button/check-button.component';
+import { SkipButtonComponent } from './components/skip-button/skip-button.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CheckButtonComponent } from './components/check-button/check-button.com
     SettingsPanelComponent,
     SettingsEntryComponent,
     AnswerInputComponent,
-    CheckButtonComponent
+    CheckButtonComponent,
+    SkipButtonComponent
   ],
   imports: [
     BrowserModule,
