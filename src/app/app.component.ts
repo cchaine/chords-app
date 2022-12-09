@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
-import { SettingsPanelComponent } from './components/settings-panel/settings-panel.component';
+import { SettingsPanelComponent, Settings } from './components/settings-panel/settings-panel.component';
 import { AnswerInputComponent } from './components/answer-input/answer-input.component';
 import { IntervalsService, Interval } from './services/intervals.service';
 
@@ -20,20 +20,20 @@ export class AppComponent {
   settings_hidden : boolean = true;
   keyboard_hidden : boolean = true;
   check_hidden : boolean = true;
-  success : boolean = false;
-  skip : boolean = false;
+  success_hidden : boolean = true;
+  skip_hidden : boolean = true;
 
   intervals_service : IntervalsService;
 
   public constructor(intervals_service: IntervalsService) {
     this.intervals_service = intervals_service;
 
-    this.new_question();
+    this.new_question(new Settings(true));
   }
 
-  public new_question() {
+  public new_question(settings : Settings) {
     // Ask the intervals_service for an interval
-    this.current_interval = this.intervals_service.generate_interval();
+    this.current_interval = this.intervals_service.generate_interval(settings);
     let root = this.current_interval.root;
 
     // Generate the question
@@ -87,7 +87,7 @@ export class AppComponent {
         this.answer_overflow_container.nativeElement.scrollTo(90, 0);
       }, 300);
     }
-  }
+    }
 
   public hide_check() {
     if(this.check_hidden == false) {
@@ -99,11 +99,19 @@ export class AppComponent {
   }
 
   public show_success() {
-    this.success = true;
+    this.success_hidden = false;
   }
 
   public hide_success() {
-    this.success = false;
+    this.success_hidden = true;
+  }
+
+  public show_skip() {
+    this.skip_hidden = false;
+  }
+
+  public hide_skip() {
+    this.skip_hidden = true;
   }
 
   public note_clicked(index: number) {
@@ -118,14 +126,12 @@ export class AppComponent {
       this.show_success();
       setTimeout(() => {
         this.answer_input.clear();
-        this.new_question();
+        this.new_question(this.settings_panel.get_settings());
         this.hide_success();
       }, 1500);
     } else {
       this.answer_input.set_invalid();
     }
-
-    // Generate a new interval
   }
 
   public check_clicked() {
@@ -135,5 +141,18 @@ export class AppComponent {
     setTimeout(() => {
       this.check_answer();
     }, 500);
+  }
+
+  public skip() {
+    this.show_skip();
+    setTimeout(() => {
+      this.answer_input.clear();
+      this.new_question(this.settings_panel.get_settings());
+      this.hide_skip();
+    }, 1000);
+  }
+
+  public settings_changed() {
+    this.skip();
   }
 }

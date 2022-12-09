@@ -3,11 +3,6 @@
     (click)="this.oncontainerclick()"
 >
   <div id="panel" (click)="this.onpanelclick()">
-    <settings-entry>Seconds</settings-entry>
-    <settings-entry>Thirds</settings-entry>
-    <settings-entry>Fourths</settings-entry>
-    <settings-entry>Fifths</settings-entry>
-    <settings-entry>Sixths</settings-entry>
-    <settings-entry>Sevenths</settings-entry>
+    <settings-entry (changed)="this.settings_changed()" #entry_down>Down</settings-entry>
   </div>
 </div>

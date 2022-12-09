@@ -2,7 +2,7 @@
   <div id="topbar">
     <title-button (click)="this.show_settings()"></title-button>
   </div>
-  <skip-button></skip-button>
+  <skip-button (click)="this.skip()"></skip-button>
 
   <div id="background" (click)="this.hide_keyboard()">
     <div id="question" [ngClass]="{'higher' : this.keyboard_hidden == false}">
@@ -13,6 +13,7 @@
 
   <settings-panel
     (clickOutside)="this.hide_settings()"
+    (settingsChanged)="this.settings_changed()"
     [ngClass]="{'hidden': this.settings_hidden}"
   ></settings-panel>
   <div id="answer-overflow-container" #answer_overflow_container
@@ -20,13 +21,18 @@
                  'left': this.check_hidden == false,
                  'noscroll': this.check_hidden}">
     <div id="answer-container">
-      <div id="answer-panel" #answer_panel [ngClass]="{'slide': this.success}">
+      <div id="answer-panel" #answer_panel>
         <div id="row1">
           <answer-input (click)="this.show_keyboard()"></answer-input>
         </div> 
-        <div id="success-container" [ngClass]="{'show': this.success}">
+        <div id="success-container" [ngClass]="{'show': this.success_hidden == false}">
           <div id="success-message">
             Success
+          </div>
+        </div>
+        <div id="skip-container" [ngClass]="{'show': this.skip_hidden == false}">
+          <div id="skip-message">
+            Skip 
           </div>
         </div>
       </div>

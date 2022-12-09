@@ -65,6 +65,7 @@ settings-panel.hidden
   transition: background-color 0.3s
   overflow: hidden
   transform: translateZ(0)
+  max-height: 100px
   
   #row1
     width: 100%
@@ -91,6 +92,24 @@ settings-panel.hidden
       color: white
   #success-container.show
     transform: translate(0px, -111px)
+
+  #skip-container
+    margin-top: 10px
+    height: calc(100% + 5px)
+    background-color: #eb7e4d
+    display: flex
+    justify-content: center
+    align-items: center
+    transform: translate(0px)
+    transition: transform 0.4s
+    
+    #skip-message
+      font-family: sans-serif
+      font-weight: bold
+      font-size: 1.5em
+      color: white
+  #skip-container.show
+    transform: translate(0px, -228px)
 
 check-button
   margin: 5px
