@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Note } from './../../services/intervals.service';
+import { Note } from '@services/intervals.service';
 
 @Component({
   selector: 'answer-input',

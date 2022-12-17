@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../components/settings-panel/settings-panel.component';
+import { Settings } from '@models/settings';
 
 @Injectable({
   providedIn: 'root'

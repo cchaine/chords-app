@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { SettingsEntryComponent } from '../settings-entry/settings-entry.component';
+import { SettingsEntryComponent } from './components/settings-entry/settings-entry.component';
+import { Settings } from '@models/settings';
 
 @Component({
   selector: 'settings-panel',
@@ -51,10 +52,3 @@ export class SettingsPanelComponent {
   }
 }
 
-export class Settings {
-  public down : boolean;
-
-  constructor(down : boolean) {
-    this.down = down;
-  }
-}
