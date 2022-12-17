@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SettingsPanelComponent } from './settings-panel.component';
 import { SettingsEntryComponent } from './components/settings-entry/settings-entry.component';
 
@@ -8,6 +9,7 @@ import { SettingsEntryComponent } from './components/settings-entry/settings-ent
     SettingsEntryComponent
   ],
   imports: [
+    CommonModule
   ],
   exports: [
     SettingsPanelComponent
@@ -15,4 +17,4 @@ import { SettingsEntryComponent } from './components/settings-entry/settings-ent
   providers: [],
   bootstrap: []
 })
-export class SettingsPanelModule { }88
+export class SettingsPanelModule { }

@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
 import { IntervalsService, Interval } from '@services/intervals.service';
 import { Settings } from '@models/settings';
-import { SettingsPanelComponent, AnswerInputComponent } from '@shared/shared.module';
+import { SettingsPanelComponent, AnswerInputComponent } from '@shared';
 
 @Component({
   selector: 'intervals-from',

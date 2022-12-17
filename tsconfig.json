@@ -27,6 +27,7 @@
     ],
     "paths": {
       "@services/*" : ["app/services/*"],
+      "@shared" : ["app/shared/"],
       "@shared/*" : ["app/shared/*"],
       "@views/*" : ["app/views/*"],
       "@models/*" : ["app/models/*"]
