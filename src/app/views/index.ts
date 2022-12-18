@@ -1,2 +1,2 @@
-export * from './intervals-from/intervals-from.component';
-export * from './menu/menu.component';
+export * from './intervals-from';
+export * from './menu';

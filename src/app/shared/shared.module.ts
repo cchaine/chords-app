@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HomeButtonModule } from './home-button/home-button.module';
 import { InputPanelModule } from './input-panel/input-panel.module';
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { SettingsPanelModule } from './settings-panel/settings-panel.module';
@@ -11,6 +12,7 @@ import { TitleButtonModule } from './title-button/title-button.module';
   ],
   imports: [
     CommonModule,
+    HomeButtonModule,
     KeyboardModule,
     InputPanelModule,
     SettingsPanelModule,
@@ -19,6 +21,7 @@ import { TitleButtonModule } from './title-button/title-button.module';
   ],
   exports: [
     CommonModule,
+    HomeButtonModule,
     KeyboardModule,
     InputPanelModule,
     SettingsPanelModule,

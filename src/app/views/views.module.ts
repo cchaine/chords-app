@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
-import { IntervalsFromComponent } from './intervals-from/intervals-from.component';
-import { MenuComponent } from './menu/menu.component';
+import { MenuModule } from './menu/menu.module';
+import { IntervalsFromModule } from './intervals-from/intervals-from.module';
 
 @NgModule({
   declarations: [
-    IntervalsFromComponent,
-    MenuComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    IntervalsFromModule,
+    MenuModule,
   ],
   exports: [
-    IntervalsFromComponent
+    IntervalsFromModule,
+    MenuModule
   ]
 })
 export class ViewsModule { }

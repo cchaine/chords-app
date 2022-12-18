@@ -1,3 +1,4 @@
+export * from './home-button';
 export * from './input-panel';
 export * from './keyboard';
 export * from './settings-panel';

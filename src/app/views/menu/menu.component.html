@@ -1,1 +1,18 @@
-<p>menu works!</p>
+<div id="container">
+  <div id="topbar">
+    <img id="logo" src="assets/icons/chords@4x.png"/>
+  </div>
+  <div id="list">
+    <div class="section" *ngFor="let section of this.sections">
+      <div class="section-title">{{ section.title }}</div>
+      <div class="section-content">
+        <menu-button *ngFor="let item of section.items" 
+          title="{{ item.title }}" 
+          description="{{ item.description }}"
+          [enabled]="item.enabled"
+          (click)="this.item_clicked(item)">
+        </menu-button>
+      </div>
+    </div>
+  </div>
+</div>
