@@ -1,4 +1,4 @@
-<div id="container">
+<div id="container" [ngClass]="{'show' : this.shown}">
   <div id="sharp-notes">
     <div></div>
     <div class="sharp-note" id="c-sharp" (click)="this.register_click(1)"></div>

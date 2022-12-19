@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { TitleButtonComponent } from './title-button.component';
+import { TextButtonComponent } from './text-button.component';
 
 @NgModule({
   declarations: [
-    TitleButtonComponent
+    TextButtonComponent
   ],
   imports: [
   ],
   exports: [
-    TitleButtonComponent
+    TextButtonComponent
   ],
   providers: [],
   bootstrap: []
 })
-export class TitleButtonModule { }
+export class TextButtonModule { }

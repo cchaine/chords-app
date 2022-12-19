@@ -1,0 +1,25 @@
+  <div id="answer-overflow-container" #answer_overflow_container
+      [ngClass]="{'show': this.keyboard_shown, 
+                 'scroll': this.check_shown}">
+    <div id="answer-container">
+      <div id="answer-panel" #answer_panel>
+        <div id="row1">
+          <answer-input 
+            *ngFor="let input of [].constructor(this.nb_inputs); let index = index"
+            (click)="this.input_clicked(index)"
+          ></answer-input>
+        </div> 
+        <div id="success-container" [ngClass]="{'show': this.success_shown}">
+          <div id="success-message">
+            Success
+          </div>
+        </div>
+        <div id="skip-container" [ngClass]="{'show': this.skip_shown}">
+          <div id="skip-message">
+            Skip 
+          </div>
+        </div>
+      </div>
+      <check-button #check_button (click)="this.check_clicked()"></check-button>
+    </div>
+  </div>

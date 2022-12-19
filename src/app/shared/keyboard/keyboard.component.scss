@@ -1,7 +1,16 @@
 @import '../../../globals';
 
 #container {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+
+  transform: translateY(calc(($keyboard-height + $answer-height + env(safe-area-inset-bottom))));
+  transition: transform 0.4s ease;
+  &.show {
+    transform: translateY(0);
+  }
 
   #notes {
     z-index: 1;
@@ -26,10 +35,10 @@
       &:active {
         background-color: #6D82F2;
       }
-    }
 
-    &.notopround {
-      border-radius: 0px 0px 30px 30px;
+      &.notopround {
+        border-radius: 0px 0px 30px 30px;
+      }
     }
   }
 

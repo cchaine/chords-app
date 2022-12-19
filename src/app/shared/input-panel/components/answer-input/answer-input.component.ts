@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Note } from '@services/intervals.service';
+import { Note } from '@models/note';
 
 @Component({
   selector: 'answer-input',
@@ -13,35 +13,48 @@ export class AnswerInputComponent {
   valid : boolean = false;
   invalid : boolean = false;
 
+  /**
+   * Selects the input
+   */
   public select() {
     this.selected = true;
     this.set_unchecked();
   }
 
+  /**
+   * Deselects the input
+   */
   public deselect() {
     this.selected = false;
   }
 
-  public set_valid() {
-    this.valid = true;
-    this.invalid = false;
+  /**
+   * Sets the input as valid or invalid according to the valid parameter
+   */
+  public set_valid(valid : boolean) {
+    this.valid = valid;
+    this.invalid = !valid;
   }
 
-  public set_invalid() {
-    this.valid = false;
-    this.invalid = true;
-  }
-
+  /**
+   * Set the inputs as unvalidated
+   */
   public set_unchecked() {
     this.valid = false;
     this.invalid = false;
   }
 
+  /**
+   * Sets the input value
+   */
   public set_value(value: Note) {
     this.value = value;
     this.title = value.names[0];
   }
 
+  /**
+   * Clears the input
+   */
   public clear() {
     this.value = null;
     this.title = "";

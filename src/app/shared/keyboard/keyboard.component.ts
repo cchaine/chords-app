@@ -9,7 +9,17 @@ export class KeyboardComponent {
   @Output()
   noteclicked: EventEmitter<number> = new EventEmitter<number>();
 
+  shown : boolean = false;
+
   public register_click(index: number) {
     this.noteclicked.emit(index)
+  }
+
+  public show() {
+    this.shown = true;
+  }
+
+  public hide() {
+    this.shown = false;
   }
 }

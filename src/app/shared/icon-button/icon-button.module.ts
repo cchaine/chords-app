@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeButtonComponent } from './home-button.component';
+import { IconButtonComponent } from './icon-button.component';
 
 @NgModule({
   declarations: [
-    HomeButtonComponent
+    IconButtonComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    HomeButtonComponent
+    IconButtonComponent
   ],
   providers: [],
   bootstrap: []
 })
-export class HomeButtonModule { }
+export class IconButtonModule { }

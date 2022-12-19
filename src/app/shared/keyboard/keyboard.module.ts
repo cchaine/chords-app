@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { KeyboardComponent } from './keyboard.component';
 
 @NgModule({
@@ -6,6 +7,7 @@ import { KeyboardComponent } from './keyboard.component';
     KeyboardComponent
   ],
   imports: [
+    CommonModule,
   ],
   exports: [
     KeyboardComponent
