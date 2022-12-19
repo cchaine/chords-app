@@ -142,19 +142,19 @@ export class FourNoteChordsComponent {
    * Shows the settings panel
    */
   public show_settings() {
-    this.settings_shown = true;
-    setTimeout(() => {
-      this.settings_panel.show();
-    }, 5);
+//    this.settings_shown = true;
+//    setTimeout(() => {
+//      this.settings_panel.show();
+//    }, 5);
   }
 
   /**
    * Hides the settings panel
    */
   public hide_settings() {
-    this.settings_panel.hide();
-    setTimeout(() => {
-      this.settings_shown = false;
-    }, 300);
+//    this.settings_panel.hide();
+//    setTimeout(() => {
+//      this.settings_shown = false;
+//    }, 300);
   }
 }
