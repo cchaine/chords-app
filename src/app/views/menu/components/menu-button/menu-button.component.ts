@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'menu-button',
   templateUrl: './menu-button.component.html',
-  styleUrls: ['./menu-button.component.sass']
+  styleUrls: ['./menu-button.component.scss']
 })
 export class MenuButtonComponent {
   @Input() title: string;

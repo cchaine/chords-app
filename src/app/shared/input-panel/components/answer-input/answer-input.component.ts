@@ -4,7 +4,7 @@ import { Note } from '@services/intervals.service';
 @Component({
   selector: 'answer-input',
   templateUrl: './answer-input.component.html',
-  styleUrls: ['./answer-input.component.sass']
+  styleUrls: ['./answer-input.component.scss']
 })
 export class AnswerInputComponent {
   selected: boolean = false;

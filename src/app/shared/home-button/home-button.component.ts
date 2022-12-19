@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'home-button',
   templateUrl: './home-button.component.html',
-  styleUrls: ['./home-button.component.sass']
+  styleUrls: ['./home-button.component.scss']
 })
 export class HomeButtonComponent {
   router : Router;

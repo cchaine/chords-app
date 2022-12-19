@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'keyboard',
   templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.sass']
+  styleUrls: ['./keyboard.component.scss']
 })
 export class KeyboardComponent {
   @Output()

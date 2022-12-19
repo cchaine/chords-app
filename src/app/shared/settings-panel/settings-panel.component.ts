@@ -5,7 +5,7 @@ import { Settings } from '@models/settings';
 @Component({
   selector: 'settings-panel',
   templateUrl: './settings-panel.component.html',
-  styleUrls: ['./settings-panel.component.sass']
+  styleUrls: ['./settings-panel.component.scss']
 })
 export class SettingsPanelComponent {
   hidden : boolean = true;

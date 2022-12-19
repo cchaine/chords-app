@@ -6,7 +6,7 @@ import { SettingsPanelComponent, AnswerInputComponent } from '@shared';
 @Component({
   selector: 'intervals-from',
   templateUrl: './intervals-from.component.html',
-  styleUrls: ['./intervals-from.component.sass']
+  styleUrls: ['./intervals-from.component.scss']
 })
 export class IntervalsFromComponent {
   current_interval : Interval;

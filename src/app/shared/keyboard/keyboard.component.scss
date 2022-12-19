@@ -1,0 +1,73 @@
+@import '../../../globals';
+
+#container {
+  position: relative;
+
+  #notes {
+    z-index: 1;
+    position: absolute ;
+    top: 0;
+
+    width: calc(100% - 6px);
+    padding: 3px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .note {
+      width: 14%;
+      height: calc($keyboard-height - 7px);
+      margin: 3px;
+
+      background-color: white;
+      border-radius: 30px;
+      
+      &:active {
+        background-color: #6D82F2;
+      }
+    }
+
+    &.notopround {
+      border-radius: 0px 0px 30px 30px;
+    }
+  }
+
+
+  #sharp-notes {
+    position: absolute;
+    top: 0;
+    left: 3px;
+
+    width: calc(100% - 6px);
+    padding: 3px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .sharp-note {
+      z-index: 2;
+      width: 9%;
+      height: calc($keyboard-height * 0.65);
+      margin: 3px 0px;
+
+      background-color: black;
+      border-radius: 0px 0px 30px 30px;
+      box-shadow: 0px 0px 0px 3px #2E2E2E;
+      
+      &:active {
+        background-color: #6D82F2;
+      }
+    }
+  }
+
+  #background {
+    width: 100%;
+    height: calc($keyboard-height + env(safe-area-inset-bottom));
+    background: #2E2E2E;
+    box-shadow: 0px 4px 45px -10px rgba(0, 0, 0, 0.25);
+    border-radius: 30px 30px 0px 0px;
+  }
+}
+

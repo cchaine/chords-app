@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'settings-entry',
   templateUrl: './settings-entry.component.html',
-  styleUrls: ['./settings-entry.component.sass']
+  styleUrls: ['./settings-entry.component.scss']
 })
 export class SettingsEntryComponent {
   selected: boolean = true;
