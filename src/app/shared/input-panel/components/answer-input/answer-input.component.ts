@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Note } from '@models/note';
 
 @Component({
@@ -12,6 +12,9 @@ export class AnswerInputComponent {
   value : Note;
   valid : boolean = false;
   invalid : boolean = false;
+
+  ngOnInit() {
+  }
 
   /**
    * Selects the input

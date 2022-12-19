@@ -32,17 +32,10 @@ export class MenuComponent {
       new MenuSection(
         "Chords", [
           new MenuItem(
-            "Three note chords",
-            "Guess the notes belonging to a given three note chord",
-            "assets/menu-icons/three-note-chords.svg",
-            "/three-note-chords",
-            false),
-          new MenuItem(
             "Four note chords",
             "Guess the notes belonging to a given four note chord",
             "assets/menu-icons/four-note-chords.svg",
-            "/four-note-chords",
-            false)
+            "/four-note-chords")
         ])
     ];
   }

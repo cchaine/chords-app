@@ -10,6 +10,7 @@
       "@shared/*" : ["app/shared/*"],
       "@views" : ["app/views/*"],
       "@views/*" : ["app/views/*"],
+      "@models" : ["app/models/*"],
       "@models/*" : ["app/models/*"]
     }
   },

@@ -1,4 +1,4 @@
-<div id="button" [style.background-color]="this.bg" [style.color]="this.fg">
+<div id="button" [ngClass]="{'inverted': this.inverted}">
   <span class="material-symbols-outlined">
     {{ this.icon }}
   </span>

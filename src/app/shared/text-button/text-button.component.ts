@@ -7,6 +7,5 @@ import { Component, EventEmitter, Output, Input} from '@angular/core';
 })
 export class TextButtonComponent {
   @Input() text : string = "";
-  @Input() bg: string = "";
-  @Input() fg: string = "";
+  @Input() inverted : boolean = false;
 }

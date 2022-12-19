@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { MenuModule } from './menu/menu.module';
 import { IntervalsFromModule } from './intervals-from/intervals-from.module';
+import { FourNoteChordsModule } from './four-note-chords/four-note-chords.module';
 
 @NgModule({
   declarations: [
@@ -12,10 +13,12 @@ import { IntervalsFromModule } from './intervals-from/intervals-from.module';
     SharedModule,
     IntervalsFromModule,
     MenuModule,
+    FourNoteChordsModule,
   ],
   exports: [
     IntervalsFromModule,
-    MenuModule
+    MenuModule,
+    FourNoteChordsModule
   ]
 })
 export class ViewsModule { }

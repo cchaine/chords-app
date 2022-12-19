@@ -56,7 +56,6 @@ export class InputPanelComponent {
       current_input.deselect();
       // Try to find the next one
       let next = this.inputs.find((element, index) => index > current_index && element.value == undefined);
-      console.log(next);
       if(next != undefined) {
         next.select();
       } else {

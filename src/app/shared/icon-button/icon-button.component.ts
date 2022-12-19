@@ -8,6 +8,5 @@ import { Router } from '@angular/router';
 })
 export class IconButtonComponent {
   @Input() icon : string = "";
-  @Input() fg: string = "";
-  @Input() bg : string = "";
+  @Input() inverted : boolean = false;
 }

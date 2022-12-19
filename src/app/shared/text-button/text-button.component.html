@@ -1,3 +1,3 @@
-<div id="button" [style.background-color]="this.bg" [style.color]="this.fg">
+<div id="button" [ngClass]="{'inverted': this.inverted}">
   {{ this.text }}
 </div>

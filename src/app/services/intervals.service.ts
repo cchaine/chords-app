@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Settings } from '@models/settings';
 import { Note } from '@models/note';
+import { Interval } from '@models/interval';
 
 @Injectable({
   providedIn: 'root'
@@ -66,18 +67,5 @@ export class IntervalsService {
     }
     interval.answer = this.notes[answer_index];
     return interval;
-  }
-}
-
-export class Interval {
-  size_in_half_step : number;
-  name : string;
-  is_up : boolean;
-  root : Note;
-  answer : Note;
-
-  public constructor(size_in_half_step : number, name : string) {
-    this.size_in_half_step = size_in_half_step;
-    this.name = name;
   }
 }

@@ -1,3 +1,5 @@
+@import "../../../globals";
+
 #button {
   width: 50px;
   height: 40px;
@@ -8,6 +10,11 @@
   align-items: center;
 
   color: white;
+
+  &.inverted {
+    color: $theme-primary;
+    background-color: white;
+  }
 
   &:active {
     background-color: #D0D0D0;

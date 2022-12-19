@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TextButtonComponent } from './text-button.component';
 
 @NgModule({
@@ -6,6 +7,7 @@ import { TextButtonComponent } from './text-button.component';
     TextButtonComponent
   ],
   imports: [
+    CommonModule
   ],
   exports: [
     TextButtonComponent

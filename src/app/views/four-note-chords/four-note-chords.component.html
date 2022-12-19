@@ -1,19 +1,18 @@
 <div id="container">
   <div id="topbar">
-    <text-button text="Intervals" [inverted]="true" (click)="this.show_settings()"></text-button>
+    <text-button text="Chords" [inverted]="true" (click)="this.show_settings()"></text-button>
   </div>
   <icon-button id="home" icon="home" [inverted]="true" (click)="this.home()"></icon-button>
   <icon-button id="skip" icon="next_plan" (click)="this.skip()"></icon-button>
 
   <div id="background" (click)="this.hide_keyboard()">
     <div id="question" [ngClass]="{'move-up' : this.keyboard_shown}">
-      <div id="subquestion">{{ this.question }}</div>
-      <div id="bigquestion">{{ this.question_root }} </div>
+      <div id="bigquestion">{{ this.question }} </div>
     </div>
   </div>
 
   <input-panel
-    [nb_inputs]="1"
+    [nb_inputs]="4"
     (inputClicked)="this.input_clicked()"  
     (checkClicked)="this.check_clicked()"
     [ngClass]="{'move-up': this.keyboard_shown}"

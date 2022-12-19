@@ -1,22 +1,21 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
-import { IntervalsService } from '@services/intervals.service';
-import { Interval } from '@models/interval';
+import { ChordsService } from '@services/chords.service';
+import { Chord } from '@models/chord';
 import { Settings } from '@models/settings';
 import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
 
 @Component({
-  selector: 'intervals-from',
-  templateUrl: './intervals-from.component.html',
-  styleUrls: ['./intervals-from.component.scss']
+  selector: 'four-note-chords',
+  templateUrl: './four-note-chords.component.html',
+  styleUrls: ['./four-note-chords.component.scss']
 })
-export class IntervalsFromComponent {
+export class FourNoteChordsComponent {
   router : Router;
-  intervals_service : IntervalsService;
+  chords_service : ChordsService;
 
-  current_interval : Interval;
+  current_chord: Chord;
   question : string = "";
-  question_root : string = "";
 
   @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
@@ -25,34 +24,32 @@ export class IntervalsFromComponent {
   settings_shown : boolean = false;
   keyboard_shown: boolean = false;
 
-  public constructor(intervals_service: IntervalsService, router : Router) {
-    this.intervals_service = intervals_service;
+  public constructor(chords_service: ChordsService, router : Router) {
+    this.chords_service = chords_service;
     this.router = router;
 
-    this.new_question(new Settings(true));
+    this.new_question();
   }
 
   ngOnInit() {
     // Change the theme color
-    document.documentElement.style.setProperty("--theme-primary", "#6D82F2");
-    document.documentElement.style.setProperty("--theme-lighter", "#B9C3FE");
+    document.documentElement.style.setProperty("--theme-primary", "#D58466");
+    document.documentElement.style.setProperty("--theme-lighter", "#F2AF88");
   }
 
   /**
    * Generates a new question
    */
-  public new_question(settings : Settings) {
-    // Ask the intervals_service for an interval
-    this.current_interval = this.intervals_service.generate_interval(settings);
-    let root = this.current_interval.root;
+  public new_question() {
+    // Ask the chords_service for a chord
+    this.current_chord = this.chords_service.generate_chord();
 
+    let root = this.current_chord.answers[0];
     // Generate the question
-    this.question = this.current_interval.name + " ";
-    this.question += this.current_interval.is_up ? "up" : "down";
-    this.question += " from";
-    
     let root_name_index = Math.floor(Math.random() * root.names.length);
-    this.question_root = root.names[root_name_index];
+    this.question = root.names[root_name_index]
+    let chord_name_index = Math.floor(Math.random() * this.current_chord.names.length);
+    this.question += this.current_chord.names[chord_name_index];
   }
 
   /**
@@ -62,13 +59,18 @@ export class IntervalsFromComponent {
     let notes = this.input_panel.get_values();
     
     // Compare results
-    let result = notes[0] == this.current_interval.answer;
-    this.input_panel.set_results([result]);
-    if(result) {
+    let results : boolean[] = [];
+    notes.forEach((el, i) => {
+        results.push(el == this.current_chord.answers[i]);
+    });
+
+    // Show results
+    this.input_panel.set_results(results);
+    if(results.filter(result => result == false).length == 0) {
       this.input_panel.show_success();
       setTimeout(() => {
         this.input_panel.clear_all();
-        this.new_question(this.settings_panel.get_settings());
+        this.new_question();
         this.input_panel.hide_success();
       }, 1500);
     }
@@ -81,7 +83,7 @@ export class IntervalsFromComponent {
     this.input_panel.show_skip();
     setTimeout(() => {
       this.input_panel.clear_all();
-      this.new_question(this.settings_panel.get_settings());
+      this.new_question();
       this.input_panel.hide_skip();
       this.hide_keyboard();
     }, 1000);
@@ -101,7 +103,7 @@ export class IntervalsFromComponent {
   }
   
   public note_clicked(index: number) {
-    this.input_panel.set_value(this.intervals_service.get_note(index));
+    this.input_panel.set_value(this.chords_service.get_note(index));
   }
 
 

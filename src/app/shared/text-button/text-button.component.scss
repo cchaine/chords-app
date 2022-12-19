@@ -1,3 +1,5 @@
+@import "../../../globals";
+
 #button {
   color: white;
   border-radius: 30px;
@@ -6,6 +8,11 @@
   font-family: sans-serif;
   font-weight: bold;
   box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.45);
+
+  &.inverted {
+    color: $theme-primary;
+    background-color: white;
+  }
 
   &:active {
     background-color: #D0D0D0;
