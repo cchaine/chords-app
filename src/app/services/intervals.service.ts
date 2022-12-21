@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '@models/settings';
 import { Note } from '@models/note';
 import { Interval } from '@models/interval';
 
@@ -45,16 +44,12 @@ export class IntervalsService {
     return this.notes[index];
   }
 
-  public generate_interval(settings : Settings) : Interval {
+  public generate_interval() : Interval {
     let interval_index = Math.floor(Math.random() * this.intervals.length);
     let interval = Object.assign({}, this.intervals[interval_index]);
 
     // We want more ups than downs
     interval.is_up = Math.floor(Math.random() * 3) >= 1;
-    // Imposes an interval going up if the setting was set
-    if(settings.down == false) {
-      interval.is_up = true;
-    }
 
     let root_index = Math.floor(Math.random() * this.notes.length);
     interval.root = this.notes[root_index];

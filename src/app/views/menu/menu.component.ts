@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SettingsPanelComponent } from '@shared';
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +11,8 @@ export class MenuComponent {
   sections : MenuSection[];
 
   router : Router;
+
+  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
   constructor(router : Router) {
     this.router = router;
@@ -42,7 +45,8 @@ export class MenuComponent {
 
   item_clicked(item : MenuItem) {
     if(item.enabled) {
-      this.router.navigateByUrl(item.link);
+      this.settings_panel.show();
+      //this.router.navigateByUrl(item.link);
     }
   }
 }

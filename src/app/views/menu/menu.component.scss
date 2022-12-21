@@ -54,3 +54,13 @@
   }
 }
 
+
+.test {
+  width: 100px;
+  height: 100px;
+  background-color:blue;
+
+  &:active {
+    background-color:red;
+  }
+}

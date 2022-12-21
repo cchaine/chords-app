@@ -1,0 +1,16 @@
+<div id="container">
+  <div id="background">
+    <div id="selector"
+      [ngClass]="{
+        'show' : this.selected > 0,
+        'left' : this.selected == 1,
+        'right' : this.selected == 3
+      }"
+    ></div>
+  </div>
+  <div id="text">
+    <div class="item" (click)="this.select(1)"><span>Easy</span></div>
+    <div class="item" (click)="this.select(2)"><span>Medium</span></div>
+    <div class="item" (click)="this.select(3)"><span>Hard</span></div>
+  </div>
+</div>

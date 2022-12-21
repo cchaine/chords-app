@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "base64-vlq": "^0.0.5",
+    "fastclick": "^1.0.6",
+    "hammerjs": "^2.0.8",
     "pwacompat": "^2.0.17",
     "rxjs": "~7.5.0",
     "tmp": "^0.2.1",

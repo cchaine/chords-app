@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IntervalsService } from '@services/intervals.service';
 import { Interval } from '@models/interval';
 import { Settings } from '@models/settings';
-import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { InputPanelComponent, KeyboardComponent } from '@shared';
 
 @Component({
   selector: 'intervals-from',
@@ -18,18 +18,16 @@ export class IntervalsFromComponent {
   question : string = "";
   question_root : string = "";
 
-  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
 
-  settings_shown : boolean = false;
   keyboard_shown: boolean = false;
 
   public constructor(intervals_service: IntervalsService, router : Router) {
     this.intervals_service = intervals_service;
     this.router = router;
 
-    this.new_question(new Settings(true));
+    this.new_question();
   }
 
   ngOnInit() {
@@ -41,9 +39,9 @@ export class IntervalsFromComponent {
   /**
    * Generates a new question
    */
-  public new_question(settings : Settings) {
+  public new_question() {
     // Ask the intervals_service for an interval
-    this.current_interval = this.intervals_service.generate_interval(settings);
+    this.current_interval = this.intervals_service.generate_interval();
     let root = this.current_interval.root;
 
     // Generate the question
@@ -68,7 +66,7 @@ export class IntervalsFromComponent {
       this.input_panel.show_success();
       setTimeout(() => {
         this.input_panel.clear_all();
-        this.new_question(this.settings_panel.get_settings());
+        this.new_question();
         this.input_panel.hide_success();
       }, 1500);
     }
@@ -81,7 +79,7 @@ export class IntervalsFromComponent {
     this.input_panel.show_skip();
     setTimeout(() => {
       this.input_panel.clear_all();
-      this.new_question(this.settings_panel.get_settings());
+      this.new_question();
       this.input_panel.hide_skip();
       this.hide_keyboard();
     }, 1000);
@@ -113,10 +111,6 @@ export class IntervalsFromComponent {
     }, 500);
   }
 
-  public settings_changed() {
-    this.skip();
-  }
-
   //------- Graphics methods -------
 
   /**
@@ -134,25 +128,5 @@ export class IntervalsFromComponent {
     this.keyboard.hide();
     this.keyboard_shown = false; 
     this.input_panel.deselect_all();
-  }
-
-  /**
-   * Shows the settings panel
-   */
-  public show_settings() {
-    this.settings_shown = true;
-    setTimeout(() => {
-      this.settings_panel.show();
-    }, 5);
-  }
-
-  /**
-   * Hides the settings panel
-   */
-  public hide_settings() {
-    this.settings_panel.hide();
-    setTimeout(() => {
-      this.settings_shown = false;
-    }, 300);
   }
 }

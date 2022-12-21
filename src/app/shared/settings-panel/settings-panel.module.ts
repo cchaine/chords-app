@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsPanelComponent } from './settings-panel.component';
-import { SettingsEntryComponent } from './components/settings-entry/settings-entry.component';
+import { PresetSelectorComponent } from './components/preset-selector/preset-selector.component';
 
 @NgModule({
   declarations: [
     SettingsPanelComponent,
-    SettingsEntryComponent
+    PresetSelectorComponent,
   ],
   imports: [
     CommonModule

@@ -27,7 +27,7 @@ export class ChordsService {
 
     this.chords = [
       new Chord(
-        ["maj7", "M7", "Δ7"], 
+        ["maj7", "M7"], 
         [4, 7, 11]),
       new Chord(
         ["m7", "-7"],

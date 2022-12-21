@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { SettingsEntryComponent } from './components/settings-entry/settings-entry.component';
 import { Settings } from '@models/settings';
 
 @Component({
@@ -8,47 +7,27 @@ import { Settings } from '@models/settings';
   styleUrls: ['./settings-panel.component.scss']
 })
 export class SettingsPanelComponent {
-  hidden : boolean = true;
-  panel_clicked : boolean = false;
+  backdrop_fading : boolean = true;
+  backdrop_shown : boolean = false;
 
-  @ViewChild('entry_down') entry_down:SettingsEntryComponent;
+  shown : boolean = false;
 
-  @Output()
-  clickOutside: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Output()
-  settingsChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  public constructor() {}
+  constructor() {
+  }
 
   public show() {
-    this.hidden = false;
+    this.backdrop_shown = true;
+    setTimeout(() => {
+      this.backdrop_fading = false;
+    }, 5);
+    this.shown = true;
   }
 
   public hide() {
-    this.hidden = true;
-  }
-
-  public onpanelclick() {
-    this.panel_clicked = true;
-  }
-
-  public oncontainerclick() {
-    if(this.panel_clicked) {
-      // Was inside
-      this.panel_clicked = false;
-    } else {
-      // Was outside
-      this.clickOutside.emit()
-    }
-  }
-
-  public get_settings() {
-    return new Settings(this.entry_down.selected);
-  }
-
-  public settings_changed() {
-    this.settingsChanged.emit();
+    this.shown = false;
+    this.backdrop_fading = true;
+    setTimeout(() => {
+      this.backdrop_shown = false;
+    }, 300);
   }
 }
-

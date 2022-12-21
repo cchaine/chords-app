@@ -1,6 +1,6 @@
 <div id="container">
   <div id="topbar">
-    <text-button text="Intervals" [inverted]="true" (click)="this.show_settings()"></text-button>
+    <text-button text="Intervals" [inverted]="true"></text-button>
   </div>
   <icon-button id="home" icon="home" [inverted]="true" (click)="this.home()"></icon-button>
   <icon-button id="skip" icon="next_plan" (click)="this.skip()"></icon-button>
@@ -22,10 +22,4 @@
   <keyboard
     (noteclicked)="this.note_clicked($event)"
   ></keyboard>
-
-  <settings-panel
-    (clickOutside)="this.hide_settings()"
-    (settingsChanged)="this.settings_changed()"
-    [ngClass]="{'show': this.settings_shown}"
-  ></settings-panel>
 </div>

@@ -1,8 +1,26 @@
+<div id="backdrop" 
+     [ngClass]="{
+        'fade': this.backdrop_fading,
+        'hide': !this.backdrop_shown
+     }"
+     (click)="this.hide()">
+</div>
+
 <div id="container"
-    [ngClass]="{'hidden' : this.hidden}"
-    (click)="this.oncontainerclick()"
->
-  <div id="panel" (click)="this.onpanelclick()">
-    <settings-entry (changed)="this.settings_changed()" #entry_down>Down</settings-entry>
+  [ngClass]="{
+    'show': this.shown  
+}">
+  <div id="panel">
+    <div id="title">Intervals - From</div>
+    <div id="content">
+      <div id="list">
+      
+      </div>
+      <div id="separator"></div>
+      <preset-selector></preset-selector>
+    </div>
+    <div id="button">
+      <span>Start</span>
+    </div>
   </div>
 </div>
