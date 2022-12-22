@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Note } from '@models/note';
 import { Interval } from '@models/interval';
+import { Settings } from '@models/settings';
 
 @Injectable({
   providedIn: 'root'
@@ -44,16 +45,43 @@ export class IntervalsService {
     return this.notes[index];
   }
 
-  public generate_interval() : Interval {
-    let interval_index = Math.floor(Math.random() * this.intervals.length);
-    let interval = Object.assign({}, this.intervals[interval_index]);
+  public generate_interval(settings : Settings) : Interval {
+    // Filter intervals according to settings
+    let filtered_intervals = this.intervals.filter((el) => {
+      let name = el.name.split(" ").slice(-1)[0];
+      return settings.get(name).enabled;
+    });
 
-    // We want more ups than downs
-    interval.is_up = Math.floor(Math.random() * 3) >= 1;
+    let interval_index = Math.floor(Math.random() * filtered_intervals.length);
+    let interval = Object.assign({}, filtered_intervals[interval_index]);
 
-    let root_index = Math.floor(Math.random() * this.notes.length);
-    interval.root = this.notes[root_index];
+    // Determines if the interval should be going up or down
+    interval.is_up = Math.floor(Math.random() * 2) == 0;
+    if(!settings.get("up").enabled) {
+      interval.is_up = false;
+    } else if(!settings.get("down").enabled) {
+      interval.is_up = true;
+    }
 
+    // Filter root notes according to settings
+    let filtered_roots = this.notes.filter((el) => {
+      let valid = false;
+      let root = el.names[0];
+      if(settings.get("whole notes").enabled) {
+        valid = valid || ((root.indexOf("#") == -1) && (root.indexOf("b") == -1));
+      }
+      if(settings.get("altered notes").enabled) {
+        valid = valid || ((root.indexOf("#") != -1) || (root.indexOf("b") != -1));
+      }
+      return valid;
+    });
+    let root_index_filtered = Math.floor(Math.random() * filtered_roots.length);
+    interval.root = filtered_roots[root_index_filtered];
+
+    // Compute the index of the root in the unfiltered list
+    let root_index = this.notes.findIndex(el => el == filtered_roots[root_index_filtered]);
+
+    // Compute the answer
     let answer_index;
     if(interval.is_up) {
       answer_index = (root_index + interval.size_in_half_step) % this.notes.length;
@@ -61,6 +89,7 @@ export class IntervalsService {
       answer_index = ((this.notes.length - 1) + (root_index - interval.size_in_half_step)) % this.notes.length;
     }
     interval.answer = this.notes[answer_index];
+
     return interval;
   }
 }

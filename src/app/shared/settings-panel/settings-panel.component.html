@@ -11,15 +11,21 @@
     'show': this.shown  
 }">
   <div id="panel">
-    <div id="title">Intervals - From</div>
+    <div id="title">{{ this.settings.target_section }} - {{ this.settings.target_name }}</div>
     <div id="content">
       <div id="list">
-      
+        <div class="setting_group" *ngFor="let group of this.settings.settings_groups">
+          <div class="setting_entry" 
+            *ngFor="let entry of group"
+            [ngClass]="{'enabled': entry.enabled}"
+            (click)="this.entry_clicked(entry)">
+              {{ entry.name }}
+          </div>
+        </div> 
       </div>
-      <div id="separator"></div>
-      <preset-selector></preset-selector>
+      <preset-selector (preset_changed)="this.preset_changed($event)"></preset-selector>
     </div>
-    <div id="button">
+    <div id="button" [ngClass]="{'disabled': !this.valid}" (click)="this.start_clicked()">
       <span>Start</span>
     </div>
   </div>

@@ -10,4 +10,8 @@ export class Chord {
     this.intervals_in_half_step = intervals_in_half_step;
     this.answers = [];
   }
+
+  public clone() {
+    return new Chord(this.names, this.intervals_in_half_step);
+  }
 }

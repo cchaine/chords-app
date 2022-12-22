@@ -51,16 +51,15 @@ export class InputPanelComponent {
     let undefined_inputs = this.inputs.filter(element => element.value == undefined);
     if(undefined_inputs.length == 0) {
       this.show_check();
+    }
+    // Otherwise select the next one
+    current_input.deselect();
+    // Try to find the next one
+    let next = this.inputs.find((element, index) => index > current_index);
+    if(next != undefined) {
+      next.select();
     } else {
-      // Otherwise select the next one
-      current_input.deselect();
-      // Try to find the next one
-      let next = this.inputs.find((element, index) => index > current_index && element.value == undefined);
-      if(next != undefined) {
-        next.select();
-      } else {
-        undefined_inputs[0].select();
-      }
+      this.inputs.first.select();
     }
   }
 

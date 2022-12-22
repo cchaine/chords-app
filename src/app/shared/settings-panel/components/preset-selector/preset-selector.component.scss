@@ -1,3 +1,5 @@
+@import 'src/globals';
+
 #container {
   position: relative;
   width: 100%;
@@ -11,7 +13,7 @@
     height: 100%;
 
     border-radius: 25px;
-    background-color: #F3F3F3;
+    background-color: #EBEBEB;
 
     display: flex;
     align-items: center;
@@ -25,12 +27,11 @@
       border-radius: 25px;
 
       transform: translateX(0);
-      background-color: #D3D3D300;
-
-      transition: transform 0.3s, background-color 0.3s;
-
+      background-color: $theme-lighter;
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
       &.show {
-        background-color: #D3D3D3;
+        opacity: 1;
       }
 
       &.left {

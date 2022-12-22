@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Chord } from '@models/chord';
 import { Note } from '@models/note';
+import { Settings } from '@models/settings';
 
 @Injectable({
   providedIn: 'root'
@@ -42,18 +43,40 @@ export class ChordsService {
     return this.notes[index];
   }
 
-  public generate_chord() : Chord {
-    let chord_index = Math.floor(Math.random() * this.chords.length);
-    let chord = Object.assign({}, this.chords[chord_index]);
+  public generate_chord(settings : Settings) : Chord {
+    // Filter chords according to settings
+    let filtered_chords = this.chords.filter((el) => {
+      let name = el.names[0];
+      return settings.get(name).enabled;
+    });
+    let chord_index = Math.floor(Math.random() * filtered_chords.length);
+    let chord = filtered_chords[chord_index].clone();
 
-    let root_index = Math.floor(Math.random() * this.notes.length);
-    chord.answers.push(this.notes[root_index]);
+    // Filter root notes according to settings
+    let filtered_roots = this.notes.filter((el) => {
+      let valid = false;
+      let root = el.names[0];
+      if(settings.get("whole roots").enabled) {
+        valid = valid || ((root.indexOf("#") == -1) && (root.indexOf("b") == -1));
+      }
+      if(settings.get("altered roots").enabled) {
+        valid = valid || ((root.indexOf("#") != -1) || (root.indexOf("b") != -1));
+      }
+      return valid;
+    });
+    let root_index_filtered = Math.floor(Math.random() * filtered_roots.length);
+    chord.answers.push(filtered_roots[root_index_filtered]);
 
+    // Compute the index of the root in the unfiltered list
+    let root_index = this.notes.findIndex(el => el == filtered_roots[root_index_filtered]);
+
+    // Compute the answer
     let answer_index;
     for(let interval of chord.intervals_in_half_step) {
       answer_index = (root_index + interval) % this.notes.length;
       chord.answers.push(this.notes[answer_index]);
     }
+
     return chord;
   }
 }

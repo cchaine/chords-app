@@ -21,10 +21,6 @@
   <keyboard
     (noteclicked)="this.note_clicked($event)"
   ></keyboard>
-
-  <settings-panel
-    (clickOutside)="this.hide_settings()"
-    (settingsChanged)="this.settings_changed()"
-    [ngClass]="{'show': this.settings_shown}"
-  ></settings-panel>
 </div>
+
+<settings-panel (start)="this.settings_changed($event)"></settings-panel>

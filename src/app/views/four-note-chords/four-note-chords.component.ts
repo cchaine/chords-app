@@ -1,9 +1,12 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { ChordsService } from '@services/chords.service';
 import { Chord } from '@models/chord';
 import { Settings } from '@models/settings';
 import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { SettingsService } from '@services/settings.service';
+import { ThemeService } from '@services/theme.service';
 
 @Component({
   selector: 'four-note-chords',
@@ -11,30 +14,37 @@ import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '
   styleUrls: ['./four-note-chords.component.scss']
 })
 export class FourNoteChordsComponent {
-  router : Router;
-  chords_service : ChordsService;
-
   current_chord: Chord;
   question : string = "";
 
-  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
 
   settings_shown : boolean = false;
   keyboard_shown: boolean = false;
 
-  public constructor(chords_service: ChordsService, router : Router) {
-    this.chords_service = chords_service;
-    this.router = router;
+  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
-    this.new_question();
+  settings : Settings = new Settings();
+
+  public constructor(private chords_service: ChordsService, private router : Router, private location: Location, private settings_service : SettingsService, private theme_service : ThemeService) {
   }
 
   ngOnInit() {
     // Change the theme color
-    document.documentElement.style.setProperty("--theme-primary", "#D58466");
-    document.documentElement.style.setProperty("--theme-lighter", "#F2AF88");
+    this.theme_service.get("Chords", "Four note chords").apply();
+
+    // Get the settings
+    let state : any = this.location.getState();
+    if(state.hasOwnProperty('settings')) {
+      // This is needed as passing data through the state variables removes class methods
+      this.settings = Object.assign(this.settings, state.settings);
+    } else {
+      // Generate a new settings property
+      this.settings = this.settings_service.get_settings("Chords", "Four note chords"); 
+    }
+
+    this.new_question();
   }
 
   /**
@@ -42,7 +52,7 @@ export class FourNoteChordsComponent {
    */
   public new_question() {
     // Ask the chords_service for a chord
-    this.current_chord = this.chords_service.generate_chord();
+    this.current_chord = this.chords_service.generate_chord(this.settings);
 
     let root = this.current_chord.answers[0];
     // Generate the question
@@ -115,8 +125,12 @@ export class FourNoteChordsComponent {
     }, 500);
   }
 
-  public settings_changed() {
-    this.skip();
+  public settings_changed(settings : Settings) {
+    this.settings = settings;
+    this.settings_panel.hide();
+    setTimeout(() => {
+      this.skip();
+    }, 200);
   }
 
   //------- Graphics methods -------
@@ -142,19 +156,6 @@ export class FourNoteChordsComponent {
    * Shows the settings panel
    */
   public show_settings() {
-//    this.settings_shown = true;
-//    setTimeout(() => {
-//      this.settings_panel.show();
-//    }, 5);
-  }
-
-  /**
-   * Hides the settings panel
-   */
-  public hide_settings() {
-//    this.settings_panel.hide();
-//    setTimeout(() => {
-//      this.settings_shown = false;
-//    }, 300);
+    this.settings_panel.show(this.settings); 
   }
 }

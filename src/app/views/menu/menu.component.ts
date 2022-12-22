@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsPanelComponent } from '@shared';
+import { SettingsService } from '@services/settings.service';
+import { Settings } from '@models/settings';
 
 @Component({
   selector: 'app-menu',
@@ -11,11 +13,15 @@ export class MenuComponent {
   sections : MenuSection[];
 
   router : Router;
+  settings_service : SettingsService;
 
   @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
-  constructor(router : Router) {
+  link : string;
+
+  constructor(router : Router, settings_service : SettingsService) {
     this.router = router;
+    this.settings_service = settings_service;
 
     this.sections = [
       new MenuSection(
@@ -43,11 +49,17 @@ export class MenuComponent {
     ];
   }
 
-  item_clicked(item : MenuItem) {
+  item_clicked(section : string, item : MenuItem) {
     if(item.enabled) {
-      this.settings_panel.show();
-      //this.router.navigateByUrl(item.link);
+      // Find the settings for this item
+      let setting = this.settings_service.get_settings(section, item.title);
+      this.settings_panel.show(setting);
+      this.link = item.link;
     }
+  }
+
+  start(settings : Settings) {
+    this.router.navigateByUrl(this.link, { state: {settings : settings} });
   }
 }
 

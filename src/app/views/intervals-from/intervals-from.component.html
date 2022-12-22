@@ -1,6 +1,6 @@
 <div id="container">
   <div id="topbar">
-    <text-button text="Intervals" [inverted]="true"></text-button>
+    <text-button text="Intervals" [inverted]="true" (click)="this.show_settings()"></text-button>
   </div>
   <icon-button id="home" icon="home" [inverted]="true" (click)="this.home()"></icon-button>
   <icon-button id="skip" icon="next_plan" (click)="this.skip()"></icon-button>
@@ -23,3 +23,5 @@
     (noteclicked)="this.note_clicked($event)"
   ></keyboard>
 </div>
+
+<settings-panel (start)="this.settings_changed($event)"></settings-panel>

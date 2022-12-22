@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'preset-selector',
@@ -8,7 +8,15 @@ import { Component } from '@angular/core';
 export class PresetSelectorComponent {
   selected : number = 0;
 
+  @Output() preset_changed : EventEmitter<number> = new EventEmitter<number>();
+
   select(id : number) {
     this.selected = id;
+
+    this.preset_changed.emit(this.selected);
+  }
+
+  public deselect() {
+    this.selected = 0;
   }
 }

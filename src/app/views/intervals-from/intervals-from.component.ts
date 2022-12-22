@@ -1,9 +1,12 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
+import { Location } from '@angular/common'; 
 import { Router } from '@angular/router';
 import { IntervalsService } from '@services/intervals.service';
 import { Interval } from '@models/interval';
 import { Settings } from '@models/settings';
-import { InputPanelComponent, KeyboardComponent } from '@shared';
+import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { SettingsService } from '@services/settings.service';
+import { ThemeService } from '@services/theme.service';
 
 @Component({
   selector: 'intervals-from',
@@ -11,9 +14,6 @@ import { InputPanelComponent, KeyboardComponent } from '@shared';
   styleUrls: ['./intervals-from.component.scss']
 })
 export class IntervalsFromComponent {
-  router : Router;
-  intervals_service : IntervalsService;
-
   current_interval : Interval;
   question : string = "";
   question_root : string = "";
@@ -21,19 +21,30 @@ export class IntervalsFromComponent {
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
 
+  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
+
   keyboard_shown: boolean = false;
 
-  public constructor(intervals_service: IntervalsService, router : Router) {
-    this.intervals_service = intervals_service;
-    this.router = router;
+  settings : Settings = new Settings();
 
-    this.new_question();
+  public constructor(private intervals_service: IntervalsService, private router : Router, private location: Location, private settings_service : SettingsService, private theme_service : ThemeService) {
   }
 
   ngOnInit() {
     // Change the theme color
-    document.documentElement.style.setProperty("--theme-primary", "#6D82F2");
-    document.documentElement.style.setProperty("--theme-lighter", "#B9C3FE");
+    this.theme_service.get("Intervals", "From").apply();
+
+    // Get the settings
+    let state : any = this.location.getState();
+    if(state.hasOwnProperty('settings')) {
+      // This is needed as passing data through the state variables removes class methods
+      this.settings = Object.assign(this.settings, state.settings);
+    } else {
+      // Generate a new settings property
+      this.settings = this.settings_service.get_settings("Intervals", "From"); 
+    }
+
+    this.new_question();
   }
 
   /**
@@ -41,7 +52,7 @@ export class IntervalsFromComponent {
    */
   public new_question() {
     // Ask the intervals_service for an interval
-    this.current_interval = this.intervals_service.generate_interval();
+    this.current_interval = this.intervals_service.generate_interval(this.settings);
     let root = this.current_interval.root;
 
     // Generate the question
@@ -111,6 +122,14 @@ export class IntervalsFromComponent {
     }, 500);
   }
 
+  public settings_changed(settings : Settings) {
+    this.settings = settings;
+    this.settings_panel.hide();
+    setTimeout(() => {
+      this.skip();
+    }, 200);
+  }
+
   //------- Graphics methods -------
 
   /**
@@ -128,5 +147,9 @@ export class IntervalsFromComponent {
     this.keyboard.hide();
     this.keyboard_shown = false; 
     this.input_panel.deselect_all();
+  }
+
+  public show_settings() {
+    this.settings_panel.show(this.settings); 
   }
 }

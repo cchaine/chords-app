@@ -10,11 +10,11 @@
           title="{{ item.title }}" 
           description="{{ item.description }}"
           [enabled]="item.enabled"
-          (click)="this.item_clicked(item)">
+          (click)="this.item_clicked(section.title, item)">
         </menu-button>
       </div>
     </div>
   </div>
 </div>
 
-<settings-panel></settings-panel>
+<settings-panel (start)="this.start($event)"></settings-panel>
