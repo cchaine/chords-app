@@ -36,15 +36,6 @@ app-root {
   @media (max-width: 769px) {
     width: 100%;
   }
-}
 
-
-.test {
-  width: 100vw;
-  height: 100vh;
-  background-color:blue;
-
-  &:active {
-    background-color:red;
-  }
+  overflow: hidden;
 }
