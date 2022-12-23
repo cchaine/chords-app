@@ -33,7 +33,7 @@ export class ChordsService {
     let chord = filtered_chords[chord_index].clone();
 
     // Filter root notes according to settings
-    let filtered_roots = this.notes_service.get_notes(settings.get("whole notes").enabled, settings.get("altered notes").enabled);
+    let filtered_roots = this.notes_service.get_notes(settings.get("Whole roots").enabled, settings.get("Altered roots").enabled);
     let root_index_filtered = Math.floor(Math.random() * filtered_roots.length);
     let root_note = filtered_roots[root_index_filtered];
 
