@@ -5,11 +5,11 @@ import { SettingsService } from '@services/settings.service';
 import { Settings } from '@models/settings';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  selector: 'menu-view',
+  templateUrl: './menu.view.html',
+  styleUrls: ['./menu.view.scss']
 })
-export class MenuComponent {
+export class MenuView {
   sections : MenuSection[];
 
   router : Router;
@@ -45,7 +45,15 @@ export class MenuComponent {
             "Guess the notes belonging to a given four note chord",
             "assets/menu-icons/four-note-chords.svg",
             "/four-note-chords")
-        ])
+        ]),
+      new MenuSection(
+        "Scales", [
+          new MenuItem(
+            "Degrees",
+            "Guess the note corresponding to a given degree of a given scale",
+            "assets/menu-icons/scales-degrees.svg",
+            "/scales-degrees")
+        ]),
     ];
   }
 

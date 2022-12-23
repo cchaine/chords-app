@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
+import { NotesService } from '@services';
+import { Note } from '@models';
+
 @Component({
   selector: 'keyboard',
   templateUrl: './keyboard.component.html',
@@ -7,12 +10,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class KeyboardComponent {
   @Output()
-  noteclicked: EventEmitter<number> = new EventEmitter<number>();
+  noteclicked: EventEmitter<Note> = new EventEmitter<Note>();
 
   shown : boolean = false;
 
+  constructor(
+    private notes_service : NotesService
+  ) {}
+
   public register_click(index: number) {
-    this.noteclicked.emit(index)
+    this.noteclicked.emit(this.notes_service.get_note(index));
   }
 
   public show() {

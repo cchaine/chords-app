@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
-import { MenuComponent } from './menu.component';
+import { MenuView } from './menu.view';
 import { MenuButtonComponent } from './components/menu-button/menu-button.component';
 
 @NgModule({
   declarations: [
-    MenuComponent,
+    MenuView,
     MenuButtonComponent
   ],
   imports: [
@@ -14,7 +14,7 @@ import { MenuButtonComponent } from './components/menu-button/menu-button.compon
     SharedModule
   ],
   exports: [
-    MenuComponent
+    MenuView
   ]
 })
 export class MenuModule { }

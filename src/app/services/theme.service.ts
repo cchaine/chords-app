@@ -18,7 +18,12 @@ export class ThemeService {
         "Chords",
         "Four note chords",
         "#D58466",
-        "#F2AF88")
+        "#F2AF88"),
+      new Theme(
+        "Scales",
+        "Degrees",
+        "#C686DC",
+        "#D1B4DB")
     ];
   }
 

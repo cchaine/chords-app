@@ -1,1 +1,1 @@
-export * from './intervals-from.component';
+export * from './intervals-from.view';

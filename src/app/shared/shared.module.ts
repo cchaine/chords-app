@@ -6,6 +6,8 @@ import { KeyboardModule } from './keyboard/keyboard.module';
 import { SettingsPanelModule } from './settings-panel/settings-panel.module';
 import { TextButtonModule } from './text-button/text-button.module';
 
+import { ChordsService, ScalesService, IntervalsService, NotesService, SettingsService, ThemeService } from '@services';
+
 @NgModule({
   declarations: [
   ],
@@ -25,7 +27,14 @@ import { TextButtonModule } from './text-button/text-button.module';
     SettingsPanelModule,
     TextButtonModule
   ],
-  providers: [],
+  providers: [
+    ChordsService,
+    ScalesService,
+    IntervalsService,
+    NotesService,
+    SettingsService,
+    ThemeService
+  ],
   bootstrap: []
 })
 export class SharedModule { }

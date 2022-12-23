@@ -1,38 +1,36 @@
 import { Component, ViewChild, ElementRef} from '@angular/core';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { IntervalsService } from '@services/intervals.service';
-import { Interval } from '@models/interval';
-import { Settings } from '@models/settings';
+
+import { Chord, Settings, Note } from '@models';
+import { ChordsService, SettingsService, ThemeService } from '@services';
 import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
-import { SettingsService } from '@services/settings.service';
-import { ThemeService } from '@services/theme.service';
 
 @Component({
-  selector: 'intervals-from',
-  templateUrl: './intervals-from.component.html',
-  styleUrls: ['./intervals-from.component.scss']
+  selector: 'four-note-chords-view',
+  templateUrl: './four-note-chords.view.html',
+  styleUrls: ['./four-note-chords.view.scss']
 })
-export class IntervalsFromComponent {
-  current_interval : Interval;
+export class FourNoteChordsView {
+  current_chord: Chord;
   question : string = "";
-  question_root : string = "";
 
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
 
-  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
-
+  settings_shown : boolean = false;
   keyboard_shown: boolean = false;
+
+  @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
   settings : Settings = new Settings();
 
-  public constructor(private intervals_service: IntervalsService, private router : Router, private location: Location, private settings_service : SettingsService, private theme_service : ThemeService) {
+  public constructor(private chords_service: ChordsService, private router : Router, private location: Location, private settings_service : SettingsService, private theme_service : ThemeService) {
   }
 
   ngOnInit() {
     // Change the theme color
-    this.theme_service.get("Intervals", "From").apply();
+    this.theme_service.get("Chords", "Four note chords").apply();
 
     // Get the settings
     let state : any = this.location.getState();
@@ -41,7 +39,7 @@ export class IntervalsFromComponent {
       this.settings = Object.assign(this.settings, state.settings);
     } else {
       // Generate a new settings property
-      this.settings = this.settings_service.get_settings("Intervals", "From"); 
+      this.settings = this.settings_service.get_settings("Chords", "Four note chords"); 
     }
 
     this.new_question();
@@ -51,17 +49,15 @@ export class IntervalsFromComponent {
    * Generates a new question
    */
   public new_question() {
-    // Ask the intervals_service for an interval
-    this.current_interval = this.intervals_service.generate_interval(this.settings);
-    let root = this.current_interval.root;
+    // Ask the chords_service for a chord
+    this.current_chord = this.chords_service.generate_chord(this.settings);
 
+    let root = this.current_chord.answers[0];
     // Generate the question
-    this.question = this.current_interval.name + " ";
-    this.question += this.current_interval.is_up ? "up" : "down";
-    this.question += " from";
-    
     let root_name_index = Math.floor(Math.random() * root.names.length);
-    this.question_root = root.names[root_name_index];
+    this.question = root.names[root_name_index]
+    let chord_name_index = Math.floor(Math.random() * this.current_chord.names.length);
+    this.question += this.current_chord.names[chord_name_index];
   }
 
   /**
@@ -71,9 +67,14 @@ export class IntervalsFromComponent {
     let notes = this.input_panel.get_values();
     
     // Compare results
-    let result = notes[0] == this.current_interval.answer;
-    this.input_panel.set_results([result]);
-    if(result) {
+    let results : boolean[] = [];
+    notes.forEach((el, i) => {
+        results.push(el == this.current_chord.answers[i]);
+    });
+
+    // Show results
+    this.input_panel.set_results(results);
+    if(results.filter(result => result == false).length == 0) {
       this.input_panel.show_success();
       setTimeout(() => {
         this.input_panel.clear_all();
@@ -109,8 +110,8 @@ export class IntervalsFromComponent {
     this.show_keyboard();
   }
   
-  public note_clicked(index: number) {
-    this.input_panel.set_value(this.intervals_service.get_note(index));
+  public note_clicked(note : Note) {
+    this.input_panel.set_value(note);
   }
 
 
@@ -149,6 +150,9 @@ export class IntervalsFromComponent {
     this.input_panel.deselect_all();
   }
 
+  /**
+   * Shows the settings panel
+   */
   public show_settings() {
     this.settings_panel.show(this.settings); 
   }

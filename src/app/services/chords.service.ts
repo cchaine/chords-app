@@ -1,31 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Chord } from '@models/chord';
-import { Note } from '@models/note';
-import { Settings } from '@models/settings';
+
+import { Chord, Note, Settings } from '@models';
+import { NotesService } from '@services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChordsService {
-  notes : Note[];
   chords : Chord[];
 
-  constructor() {
-    this.notes = [
-      new Note(["C"]),
-      new Note(["C#", "Db"]),
-      new Note(["D"]),
-      new Note(["D#", "Eb"]),
-      new Note(["E", "Fb"]),
-      new Note(["F", "E#"]),
-      new Note(["F#", "Gb"]),
-      new Note(["G"]),
-      new Note(["G#", "Ab"]),
-      new Note(["A"]),
-      new Note(["A#", "Bb"]),
-      new Note(["B", "Cb"])
-    ];
-
+  constructor(private notes_service : NotesService) {
     this.chords = [
       new Chord(
         ["maj7", "M7"], 
@@ -39,10 +23,6 @@ export class ChordsService {
     ];
   }
 
-  public get_note(index: number) : Note {
-    return this.notes[index];
-  }
-
   public generate_chord(settings : Settings) : Chord {
     // Filter chords according to settings
     let filtered_chords = this.chords.filter((el) => {
@@ -53,28 +33,15 @@ export class ChordsService {
     let chord = filtered_chords[chord_index].clone();
 
     // Filter root notes according to settings
-    let filtered_roots = this.notes.filter((el) => {
-      let valid = false;
-      let root = el.names[0];
-      if(settings.get("whole roots").enabled) {
-        valid = valid || ((root.indexOf("#") == -1) && (root.indexOf("b") == -1));
-      }
-      if(settings.get("altered roots").enabled) {
-        valid = valid || ((root.indexOf("#") != -1) || (root.indexOf("b") != -1));
-      }
-      return valid;
-    });
+    let filtered_roots = this.notes_service.get_notes(settings.get("whole notes").enabled, settings.get("altered notes").enabled);
     let root_index_filtered = Math.floor(Math.random() * filtered_roots.length);
-    chord.answers.push(filtered_roots[root_index_filtered]);
-
-    // Compute the index of the root in the unfiltered list
-    let root_index = this.notes.findIndex(el => el == filtered_roots[root_index_filtered]);
+    let root_note = filtered_roots[root_index_filtered];
 
     // Compute the answer
+    chord.answers.push(root_note);
     let answer_index;
     for(let interval of chord.intervals_in_half_step) {
-      answer_index = (root_index + interval) % this.notes.length;
-      chord.answers.push(this.notes[answer_index]);
+      chord.answers.push(this.notes_service.solve_interval_from_note(root_note, interval));
     }
 
     return chord;

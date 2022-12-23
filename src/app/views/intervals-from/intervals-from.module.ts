@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
-import { IntervalsFromComponent } from './intervals-from.component';
+import { IntervalsFromView } from './intervals-from.view';
 
 @NgModule({
   declarations: [
-    IntervalsFromComponent
+    IntervalsFromView
   ],
   imports: [
     CommonModule,
     SharedModule
   ],
   exports: [
-    IntervalsFromComponent
+    IntervalsFromView
   ]
 })
 export class IntervalsFromModule { }

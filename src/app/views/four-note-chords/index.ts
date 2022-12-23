@@ -1,1 +1,1 @@
-export * from './four-note-chords.component';
+export * from './four-note-chords.view';

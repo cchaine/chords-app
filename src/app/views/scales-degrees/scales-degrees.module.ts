@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
-import { FourNoteChordsView } from './four-note-chords.view';
+import { ScalesDegreesView } from './scales-degrees.view';
 
 @NgModule({
   declarations: [
-    FourNoteChordsView
+    ScalesDegreesView
   ],
   imports: [
     CommonModule,
     SharedModule
   ],
   exports: [
-    FourNoteChordsView
+    ScalesDegreesView
   ]
 })
-export class FourNoteChordsModule { }
+export class ScalesDegreesModule { }

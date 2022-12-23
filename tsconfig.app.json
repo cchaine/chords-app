@@ -5,12 +5,13 @@
     "outDir": "./out-tsc/app",
     "types": [],
     "paths": {
+      "@services" : ["app/services/index"],
       "@services/*" : ["app/services/*"],
-      "@shared" : ["app/shared/"],
+      "@shared" : ["app/shared/index"],
       "@shared/*" : ["app/shared/*"],
-      "@views" : ["app/views/*"],
+      "@views" : ["app/views/index"],
       "@views/*" : ["app/views/*"],
-      "@models" : ["app/models/*"],
+      "@models" : ["app/models/index"],
       "@models/*" : ["app/models/*"]
     }
   },

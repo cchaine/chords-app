@@ -39,6 +39,16 @@ export class SettingsService {
             new SettingEntry("Altered roots", Preset.MEDIUM)
           ]
       ]),
+      new Settings(
+        "Scales",
+        "Degrees", [
+          [
+            new SettingEntry("Major",  Preset.EASY),
+          ], [
+            new SettingEntry("Whole roots",   Preset.EASY),
+            new SettingEntry("Altered roots", Preset.MEDIUM)
+          ]
+      ])
     ];
   }
 

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MenuComponent, IntervalsFromComponent, FourNoteChordsComponent } from '@views/index';
+import { MenuView, IntervalsFromView, FourNoteChordsView, ScalesDegreesView } from '@views';
 
 const routes: Routes = [
-  { path: '',                   component: MenuComponent },
-  { path: 'intervals-from',     component: IntervalsFromComponent },
-  { path: 'four-note-chords',   component: FourNoteChordsComponent }
+  { path: '',                   component: MenuView },
+  { path: 'intervals-from',     component: IntervalsFromView },
+  { path: 'four-note-chords',   component: FourNoteChordsView },
+  { path: 'scales-degrees',      component: ScalesDegreesView },
 ];
 
 @NgModule({
