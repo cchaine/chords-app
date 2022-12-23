@@ -4,4 +4,5 @@ export * from './keyboard';
 export * from './settings-panel';
 export * from './text-button';
 export * from './shared.module';
+export * from './question-carousel';
 

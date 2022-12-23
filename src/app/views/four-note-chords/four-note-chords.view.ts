@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { Chord, Settings, Note } from '@models';
 import { ChordsService, SettingsService, ThemeService } from '@services';
-import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { QuestionCarouselComponent, SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
 
 @Component({
   selector: 'four-note-chords-view',
@@ -13,10 +13,10 @@ import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '
 })
 export class FourNoteChordsView {
   current_chord: Chord;
-  question : string = "";
 
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
+  @ViewChild(QuestionCarouselComponent) question_carousel : QuestionCarouselComponent;
 
   settings_shown : boolean = false;
   keyboard_shown: boolean = false;
@@ -41,7 +41,9 @@ export class FourNoteChordsView {
       // Generate a new settings property
       this.settings = this.settings_service.get_settings("Chords", "Four note chords"); 
     }
+  }
 
+  ngAfterViewInit() {
     this.new_question();
   }
 
@@ -54,10 +56,14 @@ export class FourNoteChordsView {
 
     let root = this.current_chord.answers[0];
     // Generate the question
+    let question;
     let root_name_index = Math.floor(Math.random() * root.names.length);
-    this.question = root.names[root_name_index]
+    question = root.names[root_name_index]
     let chord_name_index = Math.floor(Math.random() * this.current_chord.names.length);
-    this.question += this.current_chord.names[chord_name_index];
+    question += this.current_chord.names[chord_name_index];
+
+    // Only show the bottom question
+    this.question_carousel.next("", question);
   }
 
   /**

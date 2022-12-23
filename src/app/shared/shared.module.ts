@@ -5,6 +5,7 @@ import { InputPanelModule } from './input-panel/input-panel.module';
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { SettingsPanelModule } from './settings-panel/settings-panel.module';
 import { TextButtonModule } from './text-button/text-button.module';
+import { QuestionCarouselModule } from './question-carousel/question-carousel.module';
 
 import { ChordsService, ScalesService, IntervalsService, NotesService, SettingsService, ThemeService } from '@services';
 
@@ -17,7 +18,8 @@ import { ChordsService, ScalesService, IntervalsService, NotesService, SettingsS
     KeyboardModule,
     InputPanelModule,
     SettingsPanelModule,
-    TextButtonModule
+    TextButtonModule,
+    QuestionCarouselModule,
   ],
   exports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { ChordsService, ScalesService, IntervalsService, NotesService, SettingsS
     KeyboardModule,
     InputPanelModule,
     SettingsPanelModule,
-    TextButtonModule
+    TextButtonModule,
+    QuestionCarouselModule
   ],
   providers: [
     ChordsService,

@@ -1,0 +1,10 @@
+<div id="container">
+  <div class="question" [ngClass]="{'move-left': this.switching}">
+    <div *ngIf="this.question_top" class="subquestion">{{ this.question_top }}</div>
+    <div class="bigquestion">{{ this.question_bottom }} </div>
+  </div>
+  <div class="question" [ngClass]="{'move-left': this.switching}">
+    <div *ngIf="this.question_top" class="subquestion">{{ this.next_question_top }}</div>
+    <div class="bigquestion">{{ this.next_question_bottom }} </div>
+  </div>
+</div>

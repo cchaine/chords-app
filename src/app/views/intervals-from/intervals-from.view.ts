@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { Interval, Settings, Note } from '@models';
 import { SettingsService, ThemeService, IntervalsService, NotesService } from '@services';
-import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent, QuestionCarouselComponent } from '@shared';
 
 @Component({
   selector: 'intervals-from-view',
@@ -13,12 +13,10 @@ import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '
 })
 export class IntervalsFromView {
   current_interval : Interval;
-  question : string = "";
-  question_root : string = "";
 
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
-
+  @ViewChild(QuestionCarouselComponent) question_carousel : QuestionCarouselComponent;
   @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
   keyboard_shown: boolean = false;
@@ -47,7 +45,9 @@ export class IntervalsFromView {
       // Generate a new settings property
       this.settings = this.settings_service.get_settings("Intervals", "From"); 
     }
+  }
 
+  ngAfterViewInit() {
     this.new_question();
   }
 
@@ -60,12 +60,15 @@ export class IntervalsFromView {
     let root = this.current_interval.root;
 
     // Generate the question
-    this.question = this.current_interval.name + " ";
-    this.question += this.current_interval.is_up ? "up" : "down";
-    this.question += " from";
+    let question_top = "";
+    question_top = this.current_interval.name + " ";
+    question_top += this.current_interval.is_up ? "up" : "down";
+    question_top += " from";
     
     let root_name_index = Math.floor(Math.random() * root.names.length);
-    this.question_root = root.names[root_name_index];
+    let question_bottom = root.names[root_name_index];
+
+    this.question_carousel.next(question_top, question_bottom);
   }
 
   /**

@@ -6,9 +6,7 @@
   <icon-button id="skip" icon="next_plan" (click)="this.skip()"></icon-button>
 
   <div id="background" (click)="this.hide_keyboard()">
-    <div id="question" [ngClass]="{'move-up' : this.keyboard_shown}">
-      <div id="bigquestion">{{ this.question }} </div>
-    </div>
+    <question-carousel [ngClass]="{'move-up': this.keyboard_shown}"></question-carousel>
   </div>
 
   <input-panel

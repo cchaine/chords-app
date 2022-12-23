@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { Interval, Settings, Note, Scale } from '@models';
-import { SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
+import { QuestionCarouselComponent, SettingsPanelComponent, InputPanelComponent, KeyboardComponent } from '@shared';
 import { SettingsService, ScalesService, ThemeService } from '@services';
 
 @Component({
@@ -14,12 +14,9 @@ import { SettingsService, ScalesService, ThemeService } from '@services';
 export class ScalesDegreesView {
   current_scale : Scale;
 
-  question : string = "";
-  question_root : string = "";
-
   @ViewChild(InputPanelComponent) input_panel : InputPanelComponent;
   @ViewChild(KeyboardComponent) keyboard : KeyboardComponent;
-
+  @ViewChild(QuestionCarouselComponent) question_carousel : QuestionCarouselComponent;
   @ViewChild(SettingsPanelComponent) settings_panel : SettingsPanelComponent;
 
   keyboard_shown: boolean = false;
@@ -47,7 +44,9 @@ export class ScalesDegreesView {
       // Generate a new settings property
       this.settings = this.settings_service.get_settings("Scales", "Degrees"); 
     }
+  }
 
+  ngAfterViewInit() {
     this.new_question();
   }
 
@@ -59,11 +58,13 @@ export class ScalesDegreesView {
     this.current_scale = this.scales_service.generate_scale(this.settings);
 
     // Generate the question
-    this.question = (this.current_scale.degree_question_index + 1) + "th degree of";
+    let question = (this.current_scale.degree_question_index + 1) + "th degree of";
     
     let root = this.current_scale.notes[0];
     let root_name_index = Math.floor(Math.random() * root.names.length);
-    this.question_root = root.names[root_name_index] + " " + this.current_scale.name;
+    let question_root = root.names[root_name_index] + " " + this.current_scale.name;
+
+    this.question_carousel.next(question, question_root);
   }
 
   /**
