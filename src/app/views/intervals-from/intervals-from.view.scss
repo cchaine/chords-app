@@ -31,6 +31,8 @@
 }
 
 input-panel {
+  z-index: 5;
+
   position: absolute;
   bottom: $keyboard-height;
 
